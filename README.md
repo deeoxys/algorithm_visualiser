@@ -11,6 +11,7 @@ Program is NOT designed to be efficient at sorting, more it is for understanding
 Have python installed.
 <br>
 Might also need pygame module: `pip install pygame`
+<br>
 Run with: `python3 algorithm_visualiser.py` (or py, python etc)
 
 Program can take arguments when called from command line:
