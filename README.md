@@ -19,11 +19,14 @@ Use ESC or Q to exit- note that this won't work during sorting (but you can alwa
 <br>
 Use R to reset and scramble list.
 <br>
-Use SPACE to run sorting algorithm (currently only bubble sort, will add actual good algorithms at some point)
+Use I to run insertion sorting algorithm
+<br>
+Use B to run bubble sorting algorithm
 <br>
 
 Program can take arguments when called from command line:
-    <br>```--debug```: prints out some debug messages, as well as array on each iteration.
-    <br>```-wX```: width of blocks, where X is width (eg -w10 for 10px wide blocks)
-    <br>```-fpsX```: fps to run at, where X is fps (eg -fps60 for 60 fps)
+    <br>`--automate`: automate randomising and sorting in an infinite loop.
+    <br>`--debug`: prints out some debug messages.
+    <br>`-wX`: width of blocks, where X is width (eg -w10 for 10px wide blocks).
+    <br>`-fpsX`: fps to run at, where X is fps (eg -fps60 for 60 fps).
 

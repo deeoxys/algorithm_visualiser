@@ -83,6 +83,7 @@ class Block(pygame.sprite.Sprite):  # block object used for rendering
 
 def render(list):
     screen.fill((30, 30, 30))   # background
+    
     positions = [0] # positions to render blocks at (so they dont overlap)
     
     for i in range(1, len(list)):
@@ -108,6 +109,7 @@ def render(list):
 def randomise():
     global status
     status = "Randomising"
+    if (automate and debug): print(status)
     global operations   # access and set global operations variable to 0
     operations = 0
     
@@ -119,8 +121,10 @@ def randomise():
     return temp
 
 def bubbleSort(list):
+    if (debug): print(list)
     global status
     status = "Bubble Sort"
+    if (automate and debug): print(status)
     for i in range(len(list)- 1):
         swapped = False
         for j in range(len(list) - 1):
@@ -131,18 +135,20 @@ def bubbleSort(list):
                 time.sleep(delay)
                 global operations
                 operations += 1
-                if (debug): print(list)
                 #
                 list[j] = list[j + 1]
                 list[j + 1] = temp
                 swapped = True
         if (swapped == False):
             break
+    if (debug): print(list)
     return list
 
 def insertionSort(list):
+    if (debug): print(list)
     global status
     status = "Insertion Sort"
+    if (automate and debug): print(status)
     pos = 0
     valueToInsert = 0
     for i in range(len(list)):
@@ -154,14 +160,12 @@ def insertionSort(list):
             time.sleep(delay)
             global operations
             operations += 1
-            if (debug): print(list)
             #
             list[pos] = list[pos - 1]
             pos = pos - 1
         list[pos] = valueToInsert
+    if (debug): print(list)
     return list
-
-
 
 list = randomise()
 while running:
@@ -174,13 +178,13 @@ while running:
     if (automate):
         # automate
         time.sleep(1)
-        list = randomise()
-        time.sleep(1)
         list = bubbleSort(list)
         time.sleep(1)
         list = randomise()
         time.sleep(1)
         list = insertionSort(list)
+        time.sleep(1)
+        list = randomise()
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT or event.type == QUIT:
@@ -188,10 +192,10 @@ while running:
         elif event.type == KEYDOWN:
             if event.key == K_ESCAPE or event.key == K_q:
                 pygame.quit()
-            elif event.key == K_b:
+            elif event.key == K_b and not automate:
                 list = bubbleSort(list)
-            elif event.key == K_i:
+            elif event.key == K_i and not automate:
                 list = insertionSort(list)
-            elif event.key == K_r:
+            elif event.key == K_r and not automate:
                 list = randomise()
 pygame.quit()
