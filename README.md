@@ -5,7 +5,7 @@ Program is NOT designed to be efficient at sorting, more it is for understanding
 
 <br>
 # Demo
-<img src="https://raw.githubusercontent.com/r333mo/algorithm_visualier/main/demo.gif">
+<img src="https://raw.githubusercontent.com/r333mo/algorithm_visualiser/main/demo.gif">
 <br>
 # Running
 Have python installed.
