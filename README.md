@@ -3,12 +3,14 @@ Sorting algorithm visualiser like the ones you see on youtube.
 Written in python in an hour.. will work on cleaning it up a bit.
 Program is NOT designed to be efficient at sorting, more it is for understanding how different sorting algorithms work.
 
-<br></br>
+<br>
+# Demo
+<img src="https://raw.githubusercontent.com/r333mo/algorithm_visualier/main/demo.gif">
+<br>
 # Running
 Have python installed.
-<br></br>
+<br>
 Might also need pygame module: `pip install pygame`
-
 Run with: `python3 algorithm_visualiser.py` (or py, python etc)
 
 Program can take arguments when called from command line:
