@@ -1,4 +1,4 @@
-# sorting algorithm visualiser, like the ones you see on youtube
+# r333mo's Sorting algorithm visualiser, like the ones you see on youtube
 # TODO add sound effects
 # TODO highlight blocks at indexes being read/written to
 # TODO add lots of different algorithms
@@ -37,11 +37,10 @@ screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE
 
 debug = False
 block_width = 10
-block_height = 1 # TODO implement block height variable
+block_height = 1
 delay = 0
 fps = 30
 
-# get command line arguments
 for i in range(1, len(sys.argv)):
     if sys.argv[i] == "--debug":
         debug = True
@@ -176,7 +175,6 @@ while running:
     render(list)
     
     if (automate):
-        # automate
         time.sleep(1)
         list = bubbleSort(list)
         time.sleep(1)
