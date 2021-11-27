@@ -4,9 +4,12 @@ Written in python in an hour.. will work on cleaning it up a bit.
 Program is NOT designed to be efficient at sorting, more it is for understanding how different sorting algorithms work.
 
 <br>
+
 # Demo
 <img src="https://raw.githubusercontent.com/r333mo/algorithm_visualiser/main/demo.gif">
 <br>
+<br>
+
 # Running
 Have python installed.
 <br>
