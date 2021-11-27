@@ -17,11 +17,14 @@ Run with: `python3 algorithm_visualiser.py` (or py, python etc)
 <br>
 Use ESC or Q to exit- note that this won't work during sorting (but you can always CTRL+C terminal).
 <br>
-Use R to reset and scramble list.
 <br>
-Use I to run insertion sorting algorithm
+If NOT in automate mode:
 <br>
-Use B to run bubble sorting algorithm
+Use R to scramble list.
+<br>
+Use I to run insertion sorting algorithm.
+<br>
+Use B to run bubble sorting algorithm.
 <br>
 
 Program can take arguments when called from command line:
