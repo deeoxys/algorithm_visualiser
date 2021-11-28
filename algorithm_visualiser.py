@@ -7,7 +7,8 @@ import os
 import sys
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
-import random
+# import random
+from numpy import random
 import time
 
 from pygame.locals import (
@@ -26,19 +27,25 @@ screen_height = 600
 running = True
 operations = 0
 status = "Idle"
+arr_size = 30
+
 automate = False
+gap = 5
 
 pygame.init()
 pygame.font.init()
-pygame.display.set_caption(name + " - " + status + " - " + str(operations) + " Operations")
+pygame.display.set_caption(name)
 
-font = pygame.font.SysFont("Monospace", 16)
+# font = pygame.font.SysFont("Monospace", 16)
 screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
+
+list = []
+blocks = []
 
 debug = False
 block_width = 10
 block_height = 1
-delay = 0
+# delay = 0
 fps = 30
 
 for i in range(1, len(sys.argv)):
@@ -69,40 +76,40 @@ for i in range(1, len(sys.argv)):
                 print("FPS: " + str(fps))
         except:
             pass
+    elif sys.argv[i].__contains__("-g"):
+        try:
+            gap = int(sys.argv[i].strip("-g"))
+            if (debug):
+                print("Gap: " + str(gap))
+        except:
+            pass
 
-class Block(pygame.sprite.Sprite):  # block object used for rendering
+class Block(pygame.sprite.Sprite):
     def __init__(self, pos, size):
         super(Block, self).__init__()
         self.pos = pos
         self.size = size
-        
         self.surf = pygame.Surface((block_width, size * block_height))
-        self.surf.fill((255, 255, 255))
+        self.surf.fill((220, 220, 220))
         self.rect = self.surf.get_rect(center = ((pos + 1) * block_width, (screen_height) - (size * block_height)))
 
 def render(list):
     screen.fill((30, 30, 30))   # background
     
-    positions = [0] # positions to render blocks at (so they dont overlap)
-    
     for i in range(1, len(list)):
-        positions.append(i * (block_width + 5)) # blocks are 30px wide and we want a 5px gap between each of them
+        block = Block(i, list[i])   # this line is FAR TOO inefficient.. FIND A SOLUTION!!!!
+        screen.blit(block.surf, pygame.Rect(i * (block_width + gap), screen_height - block.rect.height, block_height * list[i], block.rect.height))
     
-    k = 1
-    for item in list:
-        block = Block(k, item)
-        r = pygame.Rect.copy(block.rect)
-        r.update(positions[k - 1], block.rect.center[1], block_height * item, block.rect.height)
-        screen.blit(block.surf, r)  # actual render
-        k += 1
+    # self.rect = self.surf.get_rect(center = ((pos + 1) * block_width, (screen_height) - (size * block_height)))
+    # for i in range(len(blocks)):
+    #             screen.blit(blocks[i].surf, pygame.Rect(i * (block_width + gap), screen_height - blocks[i].rect.height, block_height * list[i], blocks[i].rect.height))
     
-    pygame.display.set_caption(name + " - " + status + " - " + str(operations) + " operations")
+    # text = font.render("Operations: " + str(operations), False, (255, 255, 255))
+    # screen.blit(text, (1, 0))   # render operations counter
+    # text = font.render("Status: " + status, False, (255, 255, 255))
+    # screen.blit(text, (1, text.get_height()))   # render status
     
-    text = font.render("Operations: " + str(operations), False, (255, 255, 255))
-    screen.blit(text, (1, 0))   # render operations counter
-    text = font.render("Status: " + status, False, (255, 255, 255))
-    screen.blit(text, (1, text.get_height()))   # render status
-    
+    pygame.display.set_caption(name + " - " + status + " - " + str(arr_size) + " items - " + str(operations) + " Operations")
     pygame.display.flip()   # show frame on screen
 
 def randomise():
@@ -113,11 +120,24 @@ def randomise():
     operations = 0
     
     temp = []
-    for i in range(screen_width // (block_width + 5)):
-        render(temp)
+    # blocks_temp = []
+    for i in range(screen_width // (block_width + gap)):
         temp.append(random.randint(1, screen_height // block_height))
+        # block = Block(i, temp[i])
+        # blocks_temp.append(block)
+        render(temp)
+    
+    # temp = random.randint(low=(1), high=(screen_height // block_height), size=(screen_width // (block_width + gap)))
+    
+    # for i in range(screen_width // (block_width + gap), 0, -1):
+    #     render(temp)
+    #     temp.append(i)
+    
+    global arr_size
+    arr_size = len(temp)
+    
     status = "Idle"
-    return temp
+    return temp#, blocks_temp
 
 def bubbleSort(list):
     if (debug): print(list)
@@ -131,7 +151,7 @@ def bubbleSort(list):
                 temp = list[j]
                 # render, increment operations, print if debug
                 render(list)
-                time.sleep(delay)
+                # time.sleep(delay)
                 global operations
                 operations += 1
                 #
@@ -156,7 +176,7 @@ def insertionSort(list):
         while pos > 0 and list[pos - 1] > valueToInsert:
             # render, increment operations, print if debug
             render(list)
-            time.sleep(delay)
+            # time.sleep(delay)
             global operations
             operations += 1
             #
@@ -167,11 +187,13 @@ def insertionSort(list):
     return list
 
 list = randomise()
+# list, blocks = randomise()
 while running:
     clock = pygame.time.Clock()
     clock.tick(fps)
     screen_width, screen_height = pygame.display.get_surface().get_size()
     
+    # print("hello world")
     render(list)
     
     if (automate):
