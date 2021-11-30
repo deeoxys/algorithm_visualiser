@@ -14,6 +14,7 @@ from pygame.locals import (
     KEYDOWN,
     QUIT,
     K_b,
+    K_g,
     K_i,
     K_r,
     K_s,
@@ -33,7 +34,7 @@ automate = False
 debug = False
 block_width = 10
 block_height = 1
-fps = 30
+fps = 60
 
 pygame.init()
 pygame.font.init()
@@ -77,22 +78,10 @@ for i in range(1, len(sys.argv)):
         except:
             pass
 
-# class Block(pygame.sprite.Sprite):
-#     def __init__(self, pos, size):
-#         super(Block, self).__init__()
-#         self.pos = pos
-#         self.size = size
-#         self.surf = pygame.Surface((block_width, size * block_height))
-#         self.surf.fill((220, 220, 220))
-#         self.rect = self.surf.get_rect(center = ((pos + 1) * block_width, (screen_height) - (size * block_height)))
-
 def render(list):
     screen.fill((30, 30, 30))   # background
     
     for i in range(1, len(list)):
-        # block = Block(i, list[i])   # this line is FAR TOO inefficient.. FIND A SOLUTION!!!!
-        # screen.blit(block.surf, pygame.Rect(i * (block_width + gap), screen_height - block.rect.height, block_height * list[i], block.rect.height))
-
         pygame.draw.rect(screen, (255, 255, 255), (i * (block_width + gap), screen_height - (list[i] * block_height), (block_width), (list[i] * block_height)))
     
     pygame.display.set_caption(name + " - " + status + " - " + str(arr_size) + " items - " + str(operations) + " Operations")
@@ -109,12 +98,6 @@ def randomise():
     for i in range(screen_width // (block_width + gap)):
         temp.append(random.randint(1, screen_height // block_height))
         render(temp)
-    
-    # temp = random.randint(low=(1), high=(screen_height // block_height), size=(screen_width // (block_width + gap)))
-    
-    # for i in range(screen_width // (block_width + gap), 0, -1):
-    #     render(temp)
-    #     temp.append(i)
     
     global arr_size
     arr_size = len(temp)
@@ -200,6 +183,28 @@ def selectionSort(list):
     ######
     return list
 
+def gnomeSort(list):
+    ######
+    head("Gnome Sort")
+    ######
+    index = 0
+    n = len(list)
+    while index < n:
+        if index == 0:
+            index = index + 1
+        if list[index] >= list[index - 1]:
+            index = index + 1
+        else:
+            list[index], list[index-1] = list[index-1], list[index]
+            index = index - 1
+        #######
+        core()
+        ######
+    #####
+    tail()
+    ######
+    return list
+
 list = randomise()
 while running:
     clock = pygame.time.Clock()
@@ -210,6 +215,10 @@ while running:
     if (automate):
         time.sleep(1)
         list = selectionSort(list)
+        time.sleep(1)
+        list = randomise()
+        time.sleep(1)
+        list = gnomeSort(list)
         time.sleep(1)
         list = randomise()
         time.sleep(1)
@@ -233,6 +242,8 @@ while running:
                     list = bubbleSort(list)
                 elif event.key == K_i and not automate:
                     list = insertionSort(list)
+                elif event.key == K_g and not automate:
+                    list = gnomeSort(list)
                 elif event.key == K_s and not automate:
                     list = selectionSort(list)
                 elif event.key == K_r and not automate:

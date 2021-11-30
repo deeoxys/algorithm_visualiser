@@ -22,10 +22,15 @@ If NOT in automate mode:
 <br>
 Use R to scramble list.
 <br>
-Use I to run insertion sorting algorithm.
+Use I to run insertion sort algorithm.
 <br>
-Use B to run bubble sorting algorithm.
+Use B to run bubble sort algorithm.
 <br>
+Use S to run selection sort algorithm.
+<br>
+Use G to run gnome sort algorithm.
+<br>
+
 
 Program can take arguments when called from command line:
     <br>`--automate`: automate randomising and sorting in an infinite loop.
